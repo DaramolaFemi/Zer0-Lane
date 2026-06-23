@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="NEON DRIFT - An addictive neon endless runner with flow-state mechanics">
+    <meta name="theme-color" content="#0a0a12">
+    <title>NEON DRIFT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-root">
+
+        <!-- Main Game Canvas -->
+
+        <canvas id="game-canvas"></canvas>
+        
+        <!-- Particle Canvas (overlay for effects) -->
+
+        <canvas id="particle-canvas"></canvas>
+        
+        <!-- UI Layer -->
+         
+        <div id="ui-layer" class="ui-layer">
+            <!-- Top HUD -->
+            <div id="hud-top" class="hud-panel">
+                <div class="hud-item">
+                    <span class="hud-label">SCORE</span>
+                    <span id="score-display" class="hud-value">0</span>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-item">
+                    <span class="hud-label">BEST</span>
+                    <span id="best-display" class="hud-value">0</span>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-item multiplier">
+                    <span class="hud-label">MULTI</span>
+                    <span id="multiplier-display" class="hud-value">x1.0</span>
+                </div>
+            </div>
+            
+            <!-- Center Top: Speed & Flow -->
+            <div id="hud-center" class="hud-panel flow-panel">
+                <div class="flow-meter">
+                    <div class="flow-track">
+                        <div id="flow-fill" class="flow-fill"></div>
+                        <div id="flow-marker" class="flow-marker"></div>
+                    </div>
+                    <div class="flow-labels">
+                        <span>CALM</span>
+                        <span class="flow-peak">FLOW</span>
+                        <span>OVERDRIVE</span>
+                    </div>
+                </div>
+                <div class="speed-display">
+                    <span id="speed-value" class="speed-value">0</span>
+                    <span class="speed-unit">m/s</span>
+                </div>
+            </div>
+            
+            <!-- Top Right: Streak & Combo -->
+            <div id="hud-right" class="hud-panel">
+                <div class="hud-item streak">
+                    <span class="hud-icon" id="streak-icon">🔥</span>
+                    <div class="hud-info">
+                        <span class="hud-label">STREAK</span>
+                        <span id="streak-display" class="hud-value">0</span>
+                    </div>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-item combo">
+                    <span class="hud-icon">⚡</span>
+                    <div class="hud-info">
+                        <span class="hud-label">COMBO</span>
+                        <span id="combo-display" class="hud-value">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Center: Controls Hint (Desktop) -->
+            <div id="controls-hint" class="controls-hint">
+                <div class="control-group">
+                    <kbd class="key-cap">A</kbd><kbd class="key-cap">D</kbd> / <kbd class="key-cap">←</kbd><kbd class="key-cap">→</kbd> <span>Drift</span>
+                </div>
+                <div class="control-divider"></div>
+                <div class="control-group">
+                    <kbd class="key-cap">SPACE</kbd> / <kbd class="key-cap">W</kbd> / <kbd class="key-cap">↑</kbd> <span>Boost</span>
+                </div>
+                <div class="control-divider"></div>
+                <div class="control-group">
+                    <kbd class="key-cap">SHIFT</kbd> <span>Slow-Mo</span>
+                </div>
+            </div>
+            
+            <!-- Touch Controls (Mobile) -->
+            <div id="touch-controls" class="touch-controls">
+                <div class="touch-zone drift-zone" data-action="drift-left">
+                    <svg viewBox="0 0 24 24" width="28" height="28"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="touch-zone boost-zone" data-action="boost">
+                    <svg viewBox="0 0 24 24" width="32" height="32"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/></svg>
+                </div>
+                <div class="touch-zone drift-zone" data-action="drift-right">
+                    <svg viewBox="0 0 24 24" width="28" height="28"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="touch-zone slowmo-zone" data-action="slowmo">
+                    <svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Screen Overlays -->
+        <div id="start-screen" class="screen-overlay active">
+            <div class="screen-content">
+                <div class="logo-container">
+                    <div class="logo-glow"></div>
+                    <h1 class="game-title">NEON DRIFT</h1>
+                    <div class="logo-accent"></div>
+                </div>
+                <p class="game-subtitle">Enter the flow. Master the drift.</p>
+                
+                <div class="feature-pills">
+                    <div class="pill"><span class="pill-icon">⚡</span> Flow State Mechanics</div>
+                    <div class="pill"><span class="pill-icon">🎯</span> Precision Drifting</div>
+                    <div class="pill"><span class="pill-icon">🧠</span> Adaptive Difficulty</div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="btn-start" class="btn btn-primary">Start Run</button>
+                    <button id="btn-practice" class="btn btn-secondary">Practice Mode</button>
+                </div>
+                
+                <div class="stats-preview" id="stats-preview">
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="total-runs">0</span>
+                        <span class="stat-mini-label">RUNS</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="total-distance">0m</span>
+                        <span class="stat-mini-label">DISTANCE</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="best-flow">0%</span>
+                        <span class="stat-mini-label">BEST FLOW</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="play-time">0m</span>
+                        <span class="stat-mini-label">TIME</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="pause-screen" class="screen-overlay">
+            <div class="screen-content">
+                <h2 class="screen-title">PAUSED</h2>
+                <div class="menu-options">
+                    <button id="btn-resume" class="btn btn-primary">Resume</button>
+                    <button id="btn-restart" class="btn btn-secondary">Restart Run</button>
+                    <button id="btn-quit" class="btn btn-ghost">Quit to Menu</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="game-over-screen" class="screen-overlay">
+            <div class="screen-content">
+                <div class="death-banner">
+                    <span class="death-icon">💀</span>
+                    <h2 class="screen-title">RUN ENDED</h2>
+                </div>
+                
+                <div class="final-stats">
+                    <div class="stat-large">
+                        <span id="final-score" class="stat-large-value">0</span>
+                        <span class="stat-large-label">FINAL SCORE</span>
+                    </div>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span id="final-distance" class="stat-card-value">0m</span>
+                            <span class="stat-card-label">DISTANCE</span>
+                        </div>
+                        <div class="stat-card">
+                            <span id="final-combo" class="stat-card-value">x0</span>
+                            <span class="stat-card-label">MAX COMBO</span>
+                        </div>
+                        <div class="stat-card">
+                            <span id="final-flow" class="stat-card-value">0%</span>
+                            <span class="stat-card-label">FLOW %</span>
+                        </div>
+                        <div class="stat-card">
+                            <span id="final-time" class="stat-card-value">0s</span>
+                            <span class="stat-card-label">SURVIVAL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rank-display">
+                    <div class="rank-badge" id="rank-badge">D</div>
+                    <div class="rank-info">
+                        <span id="rank-name">NOVICE</span>
+                        <span id="rank-progress">Score 5,000 for C Rank</span>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="btn-retry" class="btn btn-primary">Retry</button>
+                    <button id="btn-menu" class="btn btn-secondary">Main Menu</button>
+                </div>
+                
+                <div class="share-row">
+                    <button id="btn-share" class="btn btn-ghost">Share Score</button>
+                    <button id="btn-daily" class="btn btn-ghost">Daily Challenge</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="settings-screen" class="screen-overlay">
+            <div class="screen-content" style="max-width: 400px;">
+                <h2 class="screen-title">SETTINGS</h2>
+                <div class="settings-list">
+                    <div class="setting-row">
+                        <span class="setting-label">Graphics Quality</span>
+                        <select id="setting-quality" class="setting-select">
+                            <option value="low">Performance</option>
+                            <option value="medium" selected>Balanced</option>
+                            <option value="high">Quality</option>
+                            <option value="ultra">Ultra</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Screen Shake</span>
+                        <div class="toggle" id="toggle-screenshake" data-enabled="true"></div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Particle Effects</span>
+                        <div class="toggle" id="toggle-particles" data-enabled="true"></div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Trail Effects</span>
+                        <div class="toggle" id="toggle-trails" data-enabled="true"></div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Haptic Feedback</span>
+                        <div class="toggle" id="toggle-haptic" data-enabled="true"></div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Master Volume</span>
+                        <div class="slider-container">
+                            <input type="range" id="slider-master" min="0" max="100" value="70">
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">SFX Volume</span>
+                        <div class="slider-container">
+                            <input type="range" id="slider-sfx" min="0" max="100" value="80">
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Music Volume</span>
+                        <div class="slider-container">
+                            <input type="range" id="slider-music" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                    <div class="setting-row danger-zone">
+                        <span class="setting-label">Reset All Progress</span>
+                        <button id="btn-reset" class="btn btn-danger">Reset</button>
+                    </div>
+                </div>
+                <button id="btn-settings-back" class="btn btn-primary" style="margin-top: 24px;">Done</button>
+            </div>
+        </div>
+        
+        <!-- Floating Notifications -->
+        <div id="notifications" class="notifications"></div>
+        
+        <!-- Combo Popup Container -->
+        <div id="combo-popups" class="combo-popups"></div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

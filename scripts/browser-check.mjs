@@ -23,9 +23,12 @@ async function check(width, height, touch = false) {
   await page.keyboard.down('ArrowUp'); await page.waitForTimeout(250); await page.keyboard.up('ArrowUp');
   assert.ok(parseFloat(await page.locator('#boost-fill').evaluate(el => el.style.width)) < 100);
   if (touch) {
+    await page.locator('[data-control="left"]').evaluate(button => {
+      button.addEventListener('pointerdown', event => { window.testPointerId = event.pointerId; }, { once: true });
+    });
     const box = await page.locator('[data-control="left"]').boundingBox();
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2); await page.mouse.down();
-    await page.locator('[data-control="left"]').dispatchEvent('pointercancel', { pointerId: 1, pointerType: 'mouse', bubbles: true });
+    await page.locator('[data-control="left"]').dispatchEvent('pointercancel', { pointerId: await page.evaluate(() => window.testPointerId), pointerType: 'mouse', bubbles: true });
     assert.ok(!(await page.locator('[data-control="left"]').getAttribute('class') || '').includes('pressed'));
     await page.mouse.up();
   }

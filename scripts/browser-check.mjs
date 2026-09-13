@@ -12,6 +12,9 @@ async function check(width, height, touch = false) {
   await page.waitForFunction(() => [...document.images].every(image => image.complete && image.naturalWidth > 0));
   await page.locator('#start-button').waitFor();
   assert.match(await page.title(), /Zer0 Lane/);
+  assert.ok(await page.evaluate(() => [...document.scripts].every(script => script.hasAttribute('src'))));
+  assert.ok(await page.evaluate(() => [...document.querySelectorAll('*')].every(element =>
+    [...element.attributes].every(attribute => !attribute.name.toLowerCase().startsWith('on')))));
   assert.ok(await page.locator('.design-credit').isVisible());
   await page.screenshot({ path: `/tmp/zer0-lane-menu-${width}.png`, fullPage: true });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));

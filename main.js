@@ -72,7 +72,7 @@ function start(practice = false) {
 }
 function showOverlay(kicker, title, copy, primary, secondary) {
   $('overlay-kicker').textContent = kicker;
-  const [firstLine, secondLine] = title.replace('</em>', '').split('<br><em>');
+  const [firstLine, secondLine] = title;
   const emphasis = document.createElement('em');
   emphasis.textContent = secondLine || '';
   $('overlay-title').replaceChildren(document.createTextNode(firstLine), document.createElement('br'), emphasis);
@@ -92,7 +92,7 @@ function pause() {
   } else {
     audio.stop();
     state = 'paused'; $('game-status').textContent = 'RUN PAUSED';
-    showOverlay('TAKE YOUR TIME', 'Road can<br><em>wait.</em>', 'Your run is right where you left it.', 'KEEP DRIVING', 'End run');
+    showOverlay('TAKE YOUR TIME', ['Road can', 'wait.'], 'Your run is right where you left it.', 'KEEP DRIVING', 'End run');
   }
   $('pause-button').setAttribute('aria-label', state === 'paused' ? 'Resume game' : 'Pause game');
 }
@@ -105,7 +105,7 @@ function finish(abandoned = false) {
     try { localStorage.setItem('zer0lane_highscore', String(best)); } catch { /* The best score remains available for this session. */ }
   }
   $('game-status').textContent = 'RUN COMPLETE';
-  showOverlay(newBest ? 'A NEW PERSONAL BEST' : run.practice ? 'PRACTICE COMPLETE' : 'THAT’S YOUR RUN', abandoned ? 'Clocking<br><em>out.</em>' : 'End of<br><em>the road.</em>', `${score.toLocaleString()} points · ${Math.floor(run.distance)} m · ${run.nearMisses} near misses`, 'GO AGAIN', run.practice ? 'Back to night run' : 'Warm up in practice');
+  showOverlay(newBest ? 'A NEW PERSONAL BEST' : run.practice ? 'PRACTICE COMPLETE' : 'THAT’S YOUR RUN', abandoned ? ['Clocking', 'out.'] : ['End of', 'the road.'], `${score.toLocaleString()} points · ${Math.floor(run.distance)} m · ${run.nearMisses} near misses`, 'GO AGAIN', run.practice ? 'Back to night run' : 'Warm up in practice');
   updateHUD();
 }
 $('start-button').addEventListener('click', () => state === 'paused' ? pause() : start(state === 'over' && run.practice));

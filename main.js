@@ -55,7 +55,7 @@ function feedback(kind) {
     const angle = Math.random() * Math.PI * 2;
     const speed = 30 + Math.random() * 100;
     particles.push({ x: run.x, y: PLAYER_Y, vx: Math.cos(angle) * speed / 400,
-      vy: Math.sin(angle) * speed, life: 0.45, color: kind === 'hit' ? '#f47e70' : '#8ceee0' });
+      vy: Math.sin(angle) * speed, life: 0.45, color: kind === 'hit' ? '#f47e70' : '#b99aff' });
   }
 }
 function start(practice = false) {
@@ -153,21 +153,21 @@ function sprite(name, x, y, w, h) {
 function render() {
   if (!width || !height) return;
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = '#0e171a'; ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = '#0e0c1c'; ctx.fillRect(0, 0, width, height);
   const roadWidth = Math.min(width * .75, 430), left = (width - roadWidth) / 2;
   const scale = height / 800, carScale = Math.min(roadWidth / 400, scale * 1.3);
   const offset = (run.distance / .075 * scale) % 65;
-  ctx.fillStyle = '#151e21'; ctx.fillRect(left, 0, roadWidth, height);
+  ctx.fillStyle = '#191529'; ctx.fillRect(left, 0, roadWidth, height);
   ctx.lineWidth = 1;
   for (let side = 0; side < 2; side++) {
     const edge = side ? left + roadWidth : left;
-    ctx.strokeStyle = '#507d75'; ctx.beginPath(); ctx.moveTo(edge, 0); ctx.lineTo(edge, height); ctx.stroke();
-    ctx.strokeStyle = '#243c39'; ctx.beginPath(); ctx.moveTo(edge + (side ? 7 : -7), 0); ctx.lineTo(edge + (side ? 7 : -7), height); ctx.stroke();
+    ctx.strokeStyle = '#9971cf'; ctx.beginPath(); ctx.moveTo(edge, 0); ctx.lineTo(edge, height); ctx.stroke();
+    ctx.strokeStyle = '#46305e'; ctx.beginPath(); ctx.moveTo(edge + (side ? 7 : -7), 0); ctx.lineTo(edge + (side ? 7 : -7), height); ctx.stroke();
     for (let y = offset - 65; y < height; y += 65) {
-      ctx.fillStyle = '#233833'; ctx.fillRect(edge + (side ? 17 : -21), y, 4, 18);
+      ctx.fillStyle = '#6c4786'; ctx.fillRect(edge + (side ? 17 : -21), y, 4, 18);
     }
   }
-  ctx.strokeStyle = '#2c3b3d'; ctx.setLineDash([22, 43]); ctx.lineDashOffset = -offset;
+  ctx.strokeStyle = '#463954'; ctx.setLineDash([22, 43]); ctx.lineDashOffset = -offset;
   for (let lane = 1; lane < 5; lane++) {
     const x = left + lane * roadWidth / 5;
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
@@ -185,12 +185,12 @@ function render() {
   if (state !== 'menu') {
     if (run.boosting && state === 'playing' && !reducedMotion) {
       const gradient = ctx.createLinearGradient(0, y + 25 * carScale, 0, y + 115 * carScale);
-      gradient.addColorStop(0, '#8ceee080'); gradient.addColorStop(1, '#8ceee000');
+      gradient.addColorStop(0, '#b99aff80'); gradient.addColorStop(1, '#b99aff00');
       ctx.fillStyle = gradient; ctx.fillRect(x - 12 * carScale, y + 25 * carScale, 24 * carScale, 90 * carScale);
     }
     ctx.save(); ctx.translate(x, y);
     if (!reducedMotion) { const input = inputState(); ctx.rotate((Number(input.right) - Number(input.left)) * .09); }
-    ctx.shadowColor = '#8ceee050'; ctx.shadowBlur = 16;
+    ctx.shadowColor = '#b99aff50'; ctx.shadowBlur = 16;
     if (run.invincible > 0 && Math.floor(run.elapsed * 8) % 2) ctx.globalAlpha = .4;
     sprite('car', 0, 0, 40 * carScale, 73 * carScale); ctx.restore();
   }
@@ -204,7 +204,7 @@ function render() {
     ctx.lineWidth = 4; ctx.strokeRect(2, 2, width - 4, height - 4);
   }
   const shade = ctx.createLinearGradient(0, 0, 0, height);
-  shade.addColorStop(0, '#09111490'); shade.addColorStop(.25, '#09111400'); shade.addColorStop(1, '#09111430');
+  shade.addColorStop(0, '#0b081890'); shade.addColorStop(.25, '#0b081800'); shade.addColorStop(1, '#0b081830');
   ctx.fillStyle = shade; ctx.fillRect(0, 0, width, height);
 }
 function frame(time) {

@@ -21,7 +21,7 @@ Open the address printed by Vite. To create a deployable static site, run `npm r
 - Escape or P: pause / resume.
 - On-screen controls support simultaneous touch input.
 
-Dodge coral barriers. A collision ends a normal run. Collect cyan cells for boost energy and bonus points; close passes earn 100 points. Practice mode allows collisions and never updates your personal best. Switching tabs or leaving the window automatically pauses the game. Sound starts with your first drive and can be muted using the header control. Your preference is saved. A reusable Web Audio engine supplies driving and tyre sounds; short crash, pickup, and near-miss effects use capped voices that disconnect after playback. Driving audio fades out on pause or game over. Particles are capped at 40 and respect reduced-motion settings.
+Dodge coral barriers. A collision ends a normal run. Collect violet cells for boost energy and bonus points; close passes earn 100 points. Practice mode allows collisions and never updates your personal best. Switching tabs or leaving the window automatically pauses the game. Sound starts with your first drive and can be muted using the header control. Your preference is saved. A reusable Web Audio engine supplies driving and tyre sounds; short crash, pickup, and near-miss effects use capped voices that disconnect after playback. Driving audio fades out on pause or game over. Particles are capped at 40 and respect reduced-motion settings.
 
 ## Checks
 

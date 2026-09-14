@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101416"><meta name="description" content="Zer0 Lane. An endless night drive. Dodge the barriers, find your line, beat your best."><title>Zer0 Lane — After hours</title><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script type="module" src="main.js"></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0c0b16"><meta name="description" content="Zer0 Lane. An endless night drive. Dodge the barriers, find your line, beat your best."><title>Zer0 Lane — After hours</title><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script type="module" src="main.js"></script></head>
 <body>
 <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7"/></symbol><symbol id="pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol><symbol id="sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 8q5 4 0 8"/></symbol><symbol id="boost" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7M5 21l7-7 7 7M5 9l7-7 7 7"/></symbol><symbol id="brake" viewBox="0 0 24 24"><path d="M5 6h14M5 11h14M5 16h14M5 21h14"/></symbol></svg>
 <header class="masthead"><a class="brand" href="./" aria-label="Zer0 Lane home"><img src="assets/mark.svg" alt="" width="32" height="32">ZER0 LANE<span class="edition">/ 02</span></a><div class="header-right"><span class="status-dot"></span><span>AFTER HOURS ARCADE</span><button id="sound-toggle" class="icon-button" aria-label="Mute sound" aria-pressed="true"><svg><use href="#sound"/></svg><span id="sound-label">ON</span></button></div></header>
 <main>
-<section class="intro"><div><p class="eyebrow">ENDLESS ROAD. ONE MORE RUN.</p><h1>Find your line<span>.</span></h1></div><p class="intro-copy">No finish line. No second chances.<br>Just you, the road, and your next move.</p></section>
+<section class="intro"><div><p class="eyebrow">THE CITY SLEEPS. YOU DON’T.</p><h1>Chase the <span>afterglow.</span></h1></div><p class="intro-copy">An endless night drive for the fearless.<br>Dodge. Recharge. Go a little further.</p></section>
 <div class="game-layout">
 <section class="game-shell" aria-label="Zer0 Lane game">
 <div class="game-top"><span><i class="live-dot"></i><span id="mode-label">NIGHT RUN</span></span><span class="track-name">SECTOR 01 / THE UNDERPASS</span><button id="pause-button" class="icon-button" aria-label="Pause game" disabled><svg><use href="#pause"/></svg></button></div>
-<div class="track" id="track"><canvas id="game-canvas" aria-label="Driving track. Use left and right arrows to steer, up to boost, down to brake." tabindex="0"></canvas>
+<div class="track" id="track"><img class="menu-art" src="assets/night-drive.svg" alt="" aria-hidden="true"><canvas id="game-canvas" aria-label="Driving track. Use left and right arrows to steer, up to boost, down to brake." tabindex="0"></canvas>
 <div class="hud" id="hud"><div><span class="micro">SCORE</span><strong id="score">000000</strong></div><div class="hud-right"><span class="micro">DISTANCE</span><strong><span id="distance">0</span><small> m</small></strong></div></div>
 <div class="track-label left-label">KEEP MOVING / STAY SHARP</div><div class="track-label right-label">Z0 — NIGHT DIVISION</div>
-<div class="overlay" id="overlay"><div class="start-content"><p class="eyebrow" id="overlay-kicker">THE STREETS ARE YOURS</p><h2 id="overlay-title">Own the<br><em>night.</em></h2><p id="overlay-copy">Find a gap. Hold your nerve.<br>See how far you can take it.</p><button class="primary-button" id="start-button">LET’S DRIVE <svg><use href="#arrow"/></svg></button><button class="text-button" id="practice-button">Warm up in practice <span>↗</span></button><p class="start-hint" id="start-hint">ARROW KEYS OR TOUCH CONTROLS</p></div></div>
+<div class="overlay" id="overlay"><div class="start-content"><p class="eyebrow" id="overlay-kicker">SECTOR 01 / MIDNIGHT HIGHWAY</p><h2 id="overlay-title">Own the<br><em>night.</em></h2><p id="overlay-copy">Find a gap. Hold your nerve.<br>See how far you can take it.</p><button class="primary-button" id="start-button">START YOUR ENGINE <svg><use href="#arrow"/></svg></button><button class="text-button" id="practice-button">Warm up in practice <span>↗</span></button><p class="start-hint" id="start-hint">ARROW KEYS OR TOUCH CONTROLS</p></div></div>
 <div class="run-message" id="run-message" role="status" aria-live="polite"></div>
 <div class="drive-status"><span><b id="speed">0</b> <span class="micro">KM/H</span></span><div class="boost-meter"><span class="micro">BOOST</span><div class="meter"><i id="boost-fill"></i></div></div></div>
 </div>
@@ -24,6 +24,6 @@
 <section class="road-guide"><p class="eyebrow">READ THE ROAD</p><div><img src="assets/barrier.svg" alt="" width="42" height="32"><p><strong>Keep clear.</strong><span>One hit ends your run.</span></p></div><div><img src="assets/charge.svg" alt="" width="42" height="32"><p><strong>Charge up.</strong><span>Collect cells to refill your boost.</span></p></div></section>
 <div class="side-note"><span>01 —</span><p>It’s not about going fast.<br>It’s about knowing when.</p></div></aside>
 </div>
-<footer><span>ZER0 LANE <span class="slash">/</span> AN AFTER-HOURS OBSESSION</span><span class="design-credit">Designed by Daramola Femi</span></footer>
+<footer><span>ZER0 LANE <span class="slash">/</span> AN AFTER-HOURS OBSESSION</span><a class="design-credit" href="https://github.com/DaramolaFemi" target="_blank" rel="noopener noreferrer">Designed by Daramola Femi <span aria-hidden="true">↗</span><span class="github-label">GITHUB</span></a></footer>
 </main>
 </body></html>

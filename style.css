@@ -270,8 +270,7 @@ h2 em {
 .primary-button {
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:40px;
+  justify-content:center;
   margin:auto;
   background:var(--accent);
   color:#191126;
@@ -285,10 +284,6 @@ h2 em {
 .primary-button:hover {
   background:#d8c5ff;
 }
-.primary-button svg {
-  width:19px;
-  height:19px;
-}
 .text-button {
   display:block;
   margin:12px auto 0;
@@ -300,9 +295,6 @@ h2 em {
 }
 .text-button:hover {
   color:var(--accent);
-}
-.text-button span {
-  margin-left:10px;
 }
 .start-hint {
   font:8px monospace;
@@ -763,8 +755,40 @@ h2 { font-size:clamp(66px,7vw,100px); letter-spacing:-5px; }
 h2 em { color:#edbd91; }
 .start-content .eyebrow { color:#dcc1fb; }
 .start-content>p:not(.eyebrow):not(.start-hint) { font-size:13px; color:#ded0e9; }
-.primary-button { background:#eec398; border-color:#f8d6b5; color:#24162a; border-radius:8px; min-height:54px; box-shadow:0 4px 26px #d98d6225; transition:background .2s,transform .2s; }
-.primary-button:hover { background:#ffdbb8; transform:translateY(-2px); }
+.primary-button {
+  position:relative;
+  justify-content:center;
+  min-height:56px;
+  padding:18px 28px;
+  border:1px solid #ffe0b5;
+  border-radius:3px;
+  background:linear-gradient(135deg,#ffdaa5,#efae71);
+  color:#241329;
+  font-family:"Arial Narrow",Arial,sans-serif;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-align:center;
+  box-shadow:inset 0 0 0 3px #38203918,0 5px 0 #74435a,0 10px 28px #0b081866;
+  transition:background .18s,box-shadow .18s,transform .18s;
+}
+.primary-button::before {
+  content:"";
+  position:absolute;
+  inset:4px;
+  border:1px solid #fff2d34d;
+  border-radius:1px;
+  pointer-events:none;
+}
+.primary-button:hover {
+  background:linear-gradient(135deg,#ffe8c6,#ffc18c);
+  box-shadow:inset 0 0 0 3px #38203918,0 5px 0 #74435a,0 12px 32px #efa97726;
+  transform:translateY(-1px);
+}
+.primary-button:active {
+  transform:translateY(3px);
+  box-shadow:inset 0 0 0 3px #38203918,0 2px 0 #74435a;
+}
 body:not(.playing) .primary-button { margin-left:0; }
 body:not(.playing) .text-button { margin-left:0; padding-left:0; }
 .start-hint { color:#c1aecf; }
